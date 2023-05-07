@@ -1,0 +1,229 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'playerdata/css/vtstyles.css' %}">
+    <title>Gobbler Gauntlet Spring 2023</title>
+</head>
+
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <div>
+            <h1>Gobbler Gauntlet Spring 2023</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#top">Top</a></li>
+                <li><a href="#jungle">Jungle</a></li>
+                <li><a href="#mid">Mid</a></li>
+                <li><a href="#adc">Bot</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="{% url 'match_list' %}" target="_blank">Match Data</a></li>
+                <li><a href="{% url 'player_list' %}" target="_blank">Player Data</a></li>
+                <li><a href="{% url 'team_list' %}" target="_blank">Team Data</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <section class="mt-4">
+            <h1>Gobbler Gauntlet Teams</h1>
+            <table>
+                <thead>
+                    <tr>
+                        {% for group_letter in "ABCD" %}
+                        <th>Group {{ group_letter }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for group_letter in "ABCD" %}
+                        <td>
+                            <ul>
+                                {% for team in grouped_teams|get_grouped_teams:group_letter %}
+                                <li><a href="{% url 'team_detail' team.id %}">{{ team.team_name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <div class="col-md-4">
+            <section id="statistics">
+                <h1>Tounament Statistics</h1>
+                <ul>
+                    <li><a href="{% url 'champ_stats' %}" target="_blank">Champion Stats</a></li>
+                    <li><a href="{% url 'role_stats' 1 %}">Top Lane Stats</a></li>
+                    <li><a href="{% url 'role_stats' 2 %}">Jungle Stats</a></li>
+                    <li><a href="{% url 'role_stats' 3 %}">Mid Lane Stats</a></li>
+                    <li><a href="{% url 'role_stats' 4 %}">Bot Lane Stats</a></li>
+                    <li><a href="{% url 'role_stats' 5 %}">Support Stats</a></li>
+                </ul>
+            </section>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <section id="top">
+                    <h1>Top Lane Players</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for rank in ranks %}
+                                <th>{{ rank }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for rank in ranks %}
+                                <td>
+                                    <ul>
+                                        {% for player in players %}
+                                        {% if player.primary_role.upper == "TOP" and player.peak_rank.upper == rank %}
+                                        <li><a href="{% url 'player_detail' player.id %}">{{ player.ign }}</a></li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section id="jungle">
+                    <h1>Jungle Players</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for rank in ranks %}
+                                <th>{{ rank }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for rank in ranks %}
+                                <td>
+                                    <ul>
+                                        {% for player in players %}
+                                        {% if player.primary_role.upper == "JUNGLE" and player.peak_rank.upper == rank %}
+                                        <li><a href="{% url 'player_detail' player.id %}">{{ player.ign }}</a></li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section id="mid">
+                    <h1>Mid Lane Players</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for rank in ranks %}
+                                <th>{{ rank }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for rank in ranks %}
+                                <td>
+                                    <ul>
+                                        {% for player in players %}
+                                        {% if player.primary_role.upper == "MID" and player.peak_rank.upper == rank %}
+                                        <li><a href="{% url 'player_detail' player.id %}">{{ player.ign }}</a></li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <section id="adc">
+                    <h1>Bot Lane Players</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for rank in ranks %}
+                                <th>{{ rank }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for rank in ranks %}
+                                <td>
+                                    <ul>
+                                        {% for player in players %}
+                                        {% if player.primary_role.upper == "BOT" and player.peak_rank.upper == rank %}
+                                        <li><a href="{% url 'player_detail' player.id %}">{{ player.ign }}</a></li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section id="support">
+                    <h1>Support Players</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                {% for rank in ranks %}
+                                <th>{{ rank }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {% for rank in ranks %}
+                                <td>
+                                    <ul>
+                                        {% for player in players %}
+                                        {% if player.primary_role.upper == "SUPPORT" and player.peak_rank.upper == rank %}
+                                        <li><a href="{% url 'player_detail' player.id %}">{{ player.ign }}</a></li>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-3 mt-4">
+        <p>&copy; 2023 Eric Uehling. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

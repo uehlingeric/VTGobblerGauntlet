@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'playerdata/css/styles.css' %}">
+    <title>Match Data (Raw)</title>
+</head>
+<body>
+    <h1>Match Data (Raw)</h1>
+    <table>
+        <tr>
+            <th>Week</th>
+            <th>Round Robin</th>
+            <th>Match ID</th>
+            <th>Game</th>
+            <th>Result</th>
+            <th>Team</th>
+            <th>Opponent</th>
+            <th>Side</th>
+            <th>Time</th>
+            <th>Player</th>
+            <th>Role</th>
+            <th>Champion</th>
+            <th>Kills</th>
+            <th>Deaths</th>
+            <th>Assists</th>
+            <th>KDA</th>
+            <th>CS</th>
+            <th>CS/min</th>
+            <th>CS diff</th>
+            <th>DMG</th>
+            <th>DMG %</th>
+            <th>DMG/min</th>
+            <th>KP %</th>
+            <th>Gold</th>
+            <th>Gold Share</th>
+            <th>Gold/Min</th>
+            <th>DMG/Gold</th>
+        </tr>
+        {% for match in matches %}
+        <tr>
+            <td>{{ match.week }}</td>
+            <td>{{ match.round_robin }}</td>
+            <td>{{ match.match_id }}</td>
+            <td>{{ match.game }}</td>
+            <td>{{ match.result }}</td>
+            <td>{{ match.team }}</td>
+            <td>{{ match.opponent }}</td>
+            <td>{{ match.side }}</td>
+            <td>{{ match.time }}</td>
+            <td>{{ match.player }}</td>
+            <td>{{ match.role }}</td>
+            <td>{{ match.champion }}</td>
+            <td>{{ match.kills }}</td>
+            <td>{{ match.deaths }}</td>
+            <td>{{ match.assists }}</td>
+            <td>{{ match.kda }}</td>
+            <td>{{ match.cs }}</td>
+            <td>{{ match.cs_per_min }}</td>
+            <td>{{ match.cs_diff }}</td>
+            <td>{{ match.dmg }}</td>
+            <td>{{ match.dmg_percent }}</td>
+            <td>{{ match.dmg_per_min }}</td>
+            <td>{{ match.kp_percent }}</td>
+            <td>{{ match.gold }}</td>
+            <td>{{ match.gold_share }}</td>
+            <td>{{ match.gold_per_min }}</td>
+            <td>{{ match.dmg_to_gold }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

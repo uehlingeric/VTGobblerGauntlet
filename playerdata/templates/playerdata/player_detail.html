@@ -1,0 +1,159 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'playerdata/css/vtstyles.css' %}">
+    <title>{{ player.ign }}</title>
+</head>
+
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <div>
+            <h1>{{ player.ign }}</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#overall">Overall Stats</a></li>
+                <li><a href="#champion">Champion Stats</a></li>
+                <li><a href="#history">Match History</a></li>
+                <li><a href="{{ player.opgg }}" target="_blank">OP.GG</a></li>
+                <li><a href="{% url 'home' %}">Go Back</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <section id="overall">
+                    <h2>Player Information</h2>
+                    <ul>
+                        <li>Name: {{ player.first_name }}</li>
+                        <li>Email: {{ player.email_address }}</li>
+                        <li>Discord ID: {{ player.discord_id }}</li>
+                        <li>Peak Rank: {{ player.peak_rank }}</li>
+                        <li>Primary Role: {{ player.primary_role }}</li>
+                    </ul>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section id="overall">
+                    <h2>Overall Stats</h2>
+                    <ul>
+                        <!-- Display the player's overall stats -->
+                        <li>Overall Record: {{ overall_stats.record }}</li>
+                        <li>Win Rate: {{ overall_stats.win_rate }}</li>
+                        <li>KDA: {{ overall_stats.kda }}</li>
+                        <li>CS Per Minute: {{ overall_stats.cs_per_min }}</li>
+                        <li>Gold Per Minute: {{ overall_stats.gold_per_min }}</li>
+                        <li>Gold Percentage: {{ overall_stats.gold_percentage }}</li>
+                        <li>Damage Percentage: {{ overall_stats.dmg_percentage }}</li>
+                        <li>Kill Participation Percentage: {{ overall_stats.kp_percentage }}</li>
+                        <li>CS Difference: {{ overall_stats.cs_diff }}</li>
+                        <li>Damage Per Gold: {{ overall_stats.dmg_per_gold }}</li>
+                    </ul>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section id="champion">
+                    <h2>Champion Stats</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Champion</th>
+                                <th>Record</th>
+                                <th>Win Rate</th>
+                                <th>KDA</th>
+                                <th>CS Per Minute</th>
+                                <th>Gold Per Minute</th>
+                                <th>Gold Percentage</th>
+                                <th>Damage Percentage</th>
+                                <th>Kill Participation Percentage</th>
+                                <th>CS Difference</th>
+                                <th>Damage Per Gold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for champ_stat in champion_stats %}
+                            <tr>
+                                <td>{{ champ_stat.champ_name }}</td>
+                                <td>{{ champ_stat.record }}</td>
+                                <td>{{ champ_stat.win_rate }}</td>
+                                <td>{{ champ_stat.kda }}</td>
+                                <td>{{ champ_stat.cs_per_min }}</td>
+                                <td>{{ champ_stat.gold_per_min }}</td>
+                                <td>{{ champ_stat.gold_percentage }}</td>
+                                <td>{{ champ_stat.dmg_percentage }}</td>
+                                <td>{{ champ_stat.kp_percentage }}</td>
+                                <td>{{ champ_stat.cs_diff }}</td>
+                                <td>{{ champ_stat.dmg_per_gold }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section id="history">
+                    <h2>Match History</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Team</th>
+                                <th>Opponent</th>
+                                <th>Role</th>
+                                <th>Champion</th>
+                                <th>Kills</th>
+                                <th>Deaths</th>
+                                <th>Assists</th>
+                                <th>KDA</th>
+                                <th>CS/min</th>
+                                <th>CS diff</th>
+                                <th>DMG</th>
+                                <th>DMG %</th>
+                                <th>DMG/min</th>
+                                <th>KP %</th>
+                                <th>Gold Share</th>
+                                <th>Gold/Min</th>
+                                <th>DMG/Gold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for match in matches %}
+                            <tr>
+                                <td>{{ match.team }}</td>
+                                <td>{{ match.opponent }}</td>
+                                <td>{{ match.role }}</td>
+                                <td>{{ match.champion }}</td>
+                                <td>{{ match.kills }}</td>
+                                <td>{{ match.deaths }}</td>
+                                <td>{{ match.assists }}</td>
+                                <td>{{ match.kda }}</td>
+                                <td>{{ match.cs_per_min }}</td>
+                                <td>{{ match.cs_diff }}</td>
+                                <td>{{ match.dmg }}</td>
+                                <td>{{ match.dmg_percent }}</td>
+                                <td>{{ match.dmg_per_min }}</td>
+                                <td>{{ match.kp_percent }}</td>
+                                <td>{{ match.gold_share }}</td>
+                                <td>{{ match.gold_per_min }}</td>
+                                <td>{{ match.dmg_to_gold }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-3 mt-4">
+        <p>&copy; 2023 Eric Uehling. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'playerdata/css/styles.css' %}">
+    <title>Team Data (Raw)</title>
+</head>
+<body>
+    <h1>Team Data (Raw)</h1>
+    <table>
+        <tr>
+            <th>Team Name</th>
+            <th>Group Letter</th>
+            <th>Players</th>
+        </tr>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.team_name }}</td>
+                <td>{{ team.group_letter }}</td>
+                <td>
+                    <ul>
+                        <li>{{ team.player1.ign }}</li>
+                        <li>{{ team.player2.ign }}</li>
+                        <li>{{ team.player3.ign }}</li>
+                        <li>{{ team.player4.ign }}</li>
+                        <li>{{ team.player5.ign }}</li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>     
+</body>
+</html>

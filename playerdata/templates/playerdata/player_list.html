@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'playerdata/css/styles.css' %}">
+    <title>Player Data (Raw)</title>
+</head>
+<body>
+    <h1>Player Data (Raw)</h1>
+    <table>
+        <tr>
+            <th>Email Address</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Discord ID</th>
+            <th>IGN</th>
+            <th>IGN2</th>
+            <th>OPGG</th>
+            <th>Peak Rank</th>
+            <th>Primary Role</th>
+        </tr>
+        {% for player in players %}
+        <tr>
+            <td>{{ player.email_address }}</td>
+            <td>{{ player.first_name }}</td>
+            <td>{{ player.last_name }}</td>
+            <td>{{ player.discord_id }}</td>
+            <td>{{ player.ign }}</td>
+            <td>{{ player.ign2 }}</td>
+            <td>{{ player.opgg }}</td>
+            <td>{{ player.peak_rank }}</td>
+            <td>{{ player.primary_role }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

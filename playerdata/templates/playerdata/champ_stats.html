@@ -1,0 +1,102 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'playerdata/css/vtstyles.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <style>
+        #champ-stats-table_wrapper {
+            background-color: #783937FF;
+        }
+    
+        #champ-stats-table {
+            background-color: #783937FF;
+        }
+    
+        #champ-stats-table tbody td {
+            background-color: #783937FF;
+        }
+    </style>
+    
+    <title>Champion Statistics</title>
+</head>
+
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <div>
+            <h1>Champion Statistics</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Go Back</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <section>
+                    <table id="champ-stats-table">
+                        <thead>
+                            <tr>
+                                <th>Champion</th>
+                                <th>Games Played</th>
+                                <th>Record</th>
+                                <th>Win Rate</th>
+                                <th>Avg Kills</th>
+                                <th>Avg Deaths</th>
+                                <th>Avg Assists</th>
+                                <th>Avg KDA</th>
+                                <th>Avg CS/min</th>
+                                <th>Avg Gold %</th>
+                                <th>Avg Dmg per Gold</th>
+                                <th>Avg Dmg per Min</th>
+                                <th>Avg Dmg %</th>
+                                <th>Avg KP %</th>
+                                <th>Avg CS Diff</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for champ in champ_stats %}
+                            <tr>
+                                <td>{{ champ.champ_name }}</td>
+                                <td>{{ champ.games_played }}</td>
+                                <td>{{ champ.record }}</td>
+                                <td>{{ champ.win_rate }}</td>
+                                <td>{{ champ.avg_kills|floatformat:2 }}</td>
+                                <td>{{ champ.avg_deaths|floatformat:2 }}</td>
+                                <td>{{ champ.avg_assists|floatformat:2 }}</td>
+                                <td>{{ champ.avg_kda|floatformat:2 }}</td>
+                                <td>{{ champ.avg_cs_per_min|floatformat:2 }}</td>
+                                <td>{{ champ.avg_gold_percentage|floatformat:2 }}</td>
+                                <td>{{ champ.avg_dmg_per_gold|floatformat:4 }}</td>
+                                <td>{{ champ.avg_dmg_per_min|floatformat:4 }}</td>
+                                <td>{{ champ.avg_dmg_percentage|floatformat:2 }}</td>
+                                <td>{{ champ.avg_kp_percentage|floatformat:2 }}</td>
+                                <td>{{ champ.avg_cs_diff|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+    </main>
+
+    <footer class="text-center py-3 mt-4">
+        <p>&copy; 2023 Eric Uehling. All rights reserved.</p>
+    </footer>
+    <script>
+        $(document).ready(function() {
+            $('#champ-stats-table').DataTable();
+        });
+    </script>    
+</body>
+
+</html>
